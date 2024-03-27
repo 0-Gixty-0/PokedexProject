@@ -10,9 +10,8 @@ export default function PokemonCard(Props: DisplayDataProps) {
     const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
+
     useEffect(() => {
-        console.log("is updating now")
-        console.log(Props.url)
         setIsLoading(true);
         fetch(Props.url)
             .then(response => {
@@ -33,7 +32,7 @@ export default function PokemonCard(Props: DisplayDataProps) {
     }, [Props.url])
 
     if (isLoading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
+    if (error) return <p>This is the error: {error}</p>;
     if (!data) return null;
 
     return (
