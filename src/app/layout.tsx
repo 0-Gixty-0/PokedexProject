@@ -16,7 +16,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <header>
+          <h1>The Pokedex Project!</h1>
+        </header>
+        <main>
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
