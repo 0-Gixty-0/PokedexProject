@@ -1,8 +1,17 @@
 "use client"
 import {useEffect, useState} from "react";
+import {capitalizeFirstLetter} from "../utils/stringManipulation"
+import PokemonAbilityCard from "@/app/components/pokemonAbilityCard";
 
 interface DisplayDataProps {
     url : string;
+}
+
+interface Ability {
+    ability: {
+        name: string;
+        url: string;
+    };
 }
 
 export default function PokemonCard(Props: DisplayDataProps) {
@@ -35,9 +44,17 @@ export default function PokemonCard(Props: DisplayDataProps) {
     if (error) return <p>This is the error: {error}</p>;
     if (!data) return null;
 
+    const abilitiesList = data.abilities.map((ability: Ability) =>
+        <li>
+            <h4>{capitalizeFirstLetter(ability.ability.name)}</h4>
+            <PokemonAbilityCard url={ability.ability.url}></PokemonAbilityCard>
+        </li>)
+
     return (
         <div>
-            <h2>Fetched Pokemon</h2>
+            <h2>Fetched Pokemon {capitalizeFirstLetter(data.name)}</h2>
+            <h3>Abilities:</h3>
+            <ul>{abilitiesList}</ul>
             <pre>{JSON.stringify(data, null, 2)}</pre>
         </div>
     )
