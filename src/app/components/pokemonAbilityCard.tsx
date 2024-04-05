@@ -2,6 +2,7 @@
 import {useEffect, useState} from "react";
 
 interface Props {
+    name: string
     url: string;
 }
 
@@ -15,7 +16,7 @@ interface EffectEntry {
 }
 
 export default function PokemonAbilityCard(props: Props) {
-    const [data, setData] = useState<any>(null)
+    const [data, setData] = useState<string | null>(null)
     const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -47,6 +48,9 @@ export default function PokemonAbilityCard(props: Props) {
     if (!data) return null;
 
     return (
-        <p>{data}</p>
+        <>
+            <h4>{props.name}</h4>
+            <p>{data}</p>
+        </>
     )
 }

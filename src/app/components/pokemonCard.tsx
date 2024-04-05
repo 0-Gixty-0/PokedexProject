@@ -2,6 +2,7 @@
 import {useEffect, useState} from "react";
 import {capitalizeFirstLetter} from "../utils/stringManipulation"
 import PokemonAbilityCard from "@/app/components/pokemonAbilityCard";
+import PokemonMoveCard from "@/app/components/pokemonMoveCard";
 
 interface DisplayDataProps {
     url : string;
@@ -9,6 +10,13 @@ interface DisplayDataProps {
 
 interface Ability {
     ability: {
+        name: string;
+        url: string;
+    };
+}
+
+interface Move {
+    move: {
         name: string;
         url: string;
     };
@@ -46,8 +54,15 @@ export default function PokemonCard(Props: DisplayDataProps) {
 
     const abilitiesList = data.abilities.map((ability: Ability) =>
         <li>
-            <h4>{capitalizeFirstLetter(ability.ability.name)}</h4>
-            <PokemonAbilityCard url={ability.ability.url}></PokemonAbilityCard>
+            <PokemonAbilityCard
+                name={capitalizeFirstLetter(ability.ability.name)}
+                url={ability.ability.url}>
+            </PokemonAbilityCard>
+        </li>)
+
+    const movesList = data.moves.map((move: Move) =>
+        <li>
+            <PokemonMoveCard url={move.move.url}></PokemonMoveCard>
         </li>)
 
     return (
@@ -55,6 +70,8 @@ export default function PokemonCard(Props: DisplayDataProps) {
             <h2>Fetched Pokemon {capitalizeFirstLetter(data.name)}</h2>
             <h3>Abilities:</h3>
             <ul>{abilitiesList}</ul>
+            <h3>Moves:</h3>
+            <ul>{movesList}</ul>
             <pre>{JSON.stringify(data, null, 2)}</pre>
         </div>
     )
